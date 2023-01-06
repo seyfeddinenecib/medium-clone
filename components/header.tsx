@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import NextImage from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { AiOutlineCloseSquare, AiOutlineMenu } from "react-icons/ai";
 
@@ -34,6 +35,8 @@ const Header = () => {
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
+
+  const router = useRouter();
   return (
     <Box bg="gray.200" height="50px">
       <Flex
@@ -78,6 +81,7 @@ const Header = () => {
                   bg: "blue.300",
                 },
               }}
+              onClick={() => router.push("/signin")}
             >
               Login
             </Button>
