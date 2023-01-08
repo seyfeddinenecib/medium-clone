@@ -16,7 +16,6 @@ export default function Home() {
       overflowX="hidden"
       overflowY="auto"
     >
-      <Header />
       hello world
     </Box>
   );
