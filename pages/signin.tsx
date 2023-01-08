@@ -9,7 +9,7 @@ const Signin = () => {
       borderRadius="15px"
       color="black"
       marginX="auto"
-      width="lg"
+      maxWidth="lg"
       marginTop="100px"
       textAlign="center"
       gap="40px"

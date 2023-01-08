@@ -3,6 +3,8 @@ import {
   Button,
   Flex,
   IconButton,
+  LinkBox,
+  LinkOverlay,
   List,
   ListItem,
   Menu,
@@ -48,13 +50,15 @@ const Header = () => {
         maxWidth="container.xl"
       >
         <Box width="30%">
-          <NextImage
-            src={"/logo.png"}
-            width="190"
-            height="80"
-            alt="medium"
-            title="logo"
-          />
+          <Link href={"/"}>
+            <NextImage
+              src={"/logo.png"}
+              width="190"
+              height="80"
+              alt="medium"
+              title="logo"
+            />
+          </Link>
         </Box>
         <Box width="40%" display={["none", "inline-block"]}>
           <List display="flex" justifyContent="center" gap="20px">
@@ -107,20 +111,24 @@ const Header = () => {
               >
                 <List
                   display="flex"
+                  gap="5px"
                   flexDirection="column"
-                  gap="20px"
                   flexBasis="100%"
                 >
                   {navLinks.map((nav) => (
-                    <ListItem>
-                      <Link href={nav.url}>{nav.name}</Link>
-                    </ListItem>
+                    <Link href={nav.url} onClick={() => setIsOpen(false)}>
+                      <ListItem padding="10px">{nav.name}</ListItem>
+                    </Link>
                   ))}
                   <Button
                     variant="unstyled"
                     bg="blue.200"
                     color="blue.600"
                     padding="8px 20px"
+                    onClick={() => {
+                      router.push("/signin");
+                      setIsOpen(false);
+                    }}
                     sx={{
                       "&:hover": {
                         bg: "blue.300",

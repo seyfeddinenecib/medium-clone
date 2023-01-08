@@ -8,11 +8,11 @@ const Article = () => {
   };
   const handleDelete = () => {};
   return (
-    <Box color="black" padding="30px" width="4xl" marginX="auto">
+    <Box color="black" padding="30px" maxWidth="4xl" marginX="auto">
       <Text fontSize="5xl" casing="capitalize">
         this is the title of the article
       </Text>
-      <Flex padding="30px">
+      <Flex padding="30px" align="center" gap="10px">
         <Avatar></Avatar>
         <Text>hamzouvic</Text>
       </Flex>

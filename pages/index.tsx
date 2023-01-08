@@ -11,13 +11,13 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <Box
-      height="100vh"
-      width="container.md"
+      minHeight="100vh"
+      maxWidth="container.md"
       marginX="auto"
       bg="red.50"
       overflowX="hidden"
-      overflowY="auto"
       color="black"
+      padding="20px"
     >
       <Text fontSize="5xl">Main feed</Text>
       <Text fontSize="xl" paddingY="10px">
