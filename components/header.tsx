@@ -32,7 +32,6 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const [isLargerThan800] = useMediaQuery("(min-width:800px)");
   const [isOpen, setIsOpen] = useState(true);
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
