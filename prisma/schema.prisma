@@ -16,7 +16,7 @@ model User {
   updateAt  DateTime  @updatedAt
   username  String    @unique
   password  String
-  Article   Article[]
+  Articles  Article[]
 }
 
 model Article {

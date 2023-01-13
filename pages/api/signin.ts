@@ -1,21 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
 import cookie from "cookie";
-import jwt from "jsonwebtoken";
+import { generateToken } from "../../lib/token";
+import { validatePassword } from "../../lib/crypt";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { username, password } = req.body;
-  if (!username || !password) return res.status(501).send();
+  if (!username || !password) return res.status(501).send({});
   const user = await prisma.user.findUnique({
     where: {
       username,
     },
   });
 
-  if (user) {
+  if (user && validatePassword(password, user.password)) {
     let token = generateToken(user.username);
     res.setHeader(
       "Set-Cookie",
@@ -28,12 +29,6 @@ export default async function handler(
     );
     return res.status(200).json(user);
   } else {
-    return res.status(401).json({ message: "user not found" });
+    return res.status(401).json({ message: "username or password wrong" });
   }
 }
-
-const generateToken = (username: string): string => {
-  return jwt.sign({ username }, "ksdljfasdlkjflsdjafladfkj", {
-    expiresIn: "8d",
-  });
-};
