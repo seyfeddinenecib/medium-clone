@@ -1,8 +1,8 @@
 import { Box, Link, LinkBox, Text } from "@chakra-ui/react";
 
-const ArticleCard = () => {
+const ArticleCard = ({ article }) => {
   return (
-    <Link href="/article">
+    <Link href={`/articles/${article.id}`}>
       <Box
         color="black"
         shadow="2xl"
@@ -13,14 +13,20 @@ const ArticleCard = () => {
         marginY="10px"
         cursor="pointer"
       >
-        <Text fontSize="4xl">
-          this is also this this is an article about how to be smart
-        </Text>
-        <Text fontSize="md">posted 14 june 2022</Text>
-        <Text fontSize="small">by hamzouvic</Text>
+        <Text fontSize="4xl">{article.title}</Text>
+        <Text fontSize="md">posted {formatDate(article.createdAt)}</Text>
+        <Text fontSize="small">by {article.user.username}</Text>
       </Box>
     </Link>
   );
+};
+
+export const formatDate = (date: Date) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 };
 
 export default ArticleCard;

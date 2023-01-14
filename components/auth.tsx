@@ -1,13 +1,30 @@
-import { Button, Flex, Input, InputProps } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  InputProps,
+  UsePinInputFieldProps,
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { FC, FormEvent, useRef } from "react";
+import { signin } from "../lib/mutations";
 
 const Auth: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
-  const username = useRef<any>(null);
-  const password = useRef<any>(null);
-  const handleSubmit = (e: FormEvent) => {
+  const router = useRouter();
+  const username = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (username.current && password.current) {
-      console.log(username.current.value, password.current?.value);
+      let u = username.current.value;
+      let p = password.current.value;
+      if (mode === "signin") {
+        const a = await signin({ username: u, password: p });
+        console.log(a);
+        if (a.username) {
+          router.push("/");
+        }
+      }
     }
   };
   return (
