@@ -5,11 +5,13 @@ import {
   InputProps,
   UsePinInputFieldProps,
 } from "@chakra-ui/react";
+import { useStoreActions } from "easy-peasy";
 import { useRouter } from "next/router";
 import { FC, FormEvent, useRef } from "react";
 import { signin } from "../lib/mutations";
 
 const Auth: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
+  const setSignIn = useStoreActions((state: any) => state.signin);
   const router = useRouter();
   const username = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
@@ -20,8 +22,8 @@ const Auth: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
       let p = password.current.value;
       if (mode === "signin") {
         const a = await signin({ username: u, password: p });
-        console.log(a);
         if (a.username) {
+          setSignIn(a);
           router.push("/");
         }
       }

@@ -14,6 +14,7 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { useStoreState } from "easy-peasy";
 import NextImage from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -32,6 +33,7 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const user = useStoreState((state: any) => state.user);
   const [isOpen, setIsOpen] = useState(true);
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -70,24 +72,43 @@ const Header = () => {
         </Box>
         <Box width="30%">
           <Flex align="center" justify="right" gap="10px">
+            {console.log(user)}
             <Text display={["none", "none", "inline-block"]}>
-              hamzouvic@gmail.com
+              {user ? user.username : null}
             </Text>
-            <Button
-              display={["none", "inline-block"]}
-              variant="unstyled"
-              bg="blue.200"
-              color="blue.600"
-              padding="8px 20px"
-              sx={{
-                "&:hover": {
-                  bg: "blue.300",
-                },
-              }}
-              onClick={() => router.push("/signin")}
-            >
-              Login
-            </Button>
+            {user ? (
+              <Button
+                display={["none", "inline-block"]}
+                variant="unstyled"
+                bg="blue.200"
+                color="blue.600"
+                padding="8px 20px"
+                sx={{
+                  "&:hover": {
+                    bg: "blue.300",
+                  },
+                }}
+                onClick={() => router.push("/signout")}
+              >
+                Signout
+              </Button>
+            ) : (
+              <Button
+                display={["none", "inline-block"]}
+                variant="unstyled"
+                bg="blue.200"
+                color="blue.600"
+                padding="8px 20px"
+                sx={{
+                  "&:hover": {
+                    bg: "blue.300",
+                  },
+                }}
+                onClick={() => router.push("/signin")}
+              >
+                Login
+              </Button>
+            )}
             <Box
               onClick={toggleMenu}
               fontSize="30px"
